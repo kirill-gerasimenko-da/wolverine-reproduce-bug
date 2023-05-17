@@ -13,7 +13,6 @@ public class AppHandler
     public async Task<Response> Handle
     (
         Request request,
-        // AppDbContext context,
         IMessageBus messageBus
     )
     {

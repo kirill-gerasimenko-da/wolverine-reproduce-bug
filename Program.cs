@@ -24,8 +24,6 @@ builder.Host.UseWolverine((context, options) =>
     options.UseEntityFrameworkCoreTransactions();
     options.Policies.AutoApplyTransactions();
 
-    // set up messaging
-    options.PublishMessage<FollowUpHandler.FollowUpMessage>().Locally().UseDurableInbox();
 }).ApplyOaktonExtensions();
 
 var app = builder.Build();
