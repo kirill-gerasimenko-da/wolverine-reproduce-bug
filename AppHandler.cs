@@ -1,5 +1,6 @@
 namespace ReproduceWolverineIssue;
 
+using JasperFx.Core;
 using Wolverine;
 using Wolverine.ErrorHandling;
 using Wolverine.Runtime.Handlers;
@@ -28,15 +29,15 @@ public class FollowUpHandler
     public static void Configure(HandlerChain chain)
     {
         chain.OnAnyException()
-            .RetryTimes(3)
-            .Then
-            .MoveToErrorQueue();
+            .RetryTimes(1)
+            .Then.Requeue()
+            .AndPauseProcessing(1.Minutes())
+            .Then.MoveToErrorQueue();
     }
 
     public async Task Handle
     (
-        FollowUpMessage message,
-        AppDbContext context
+        FollowUpMessage message
     )
     {
         throw new Exception();
